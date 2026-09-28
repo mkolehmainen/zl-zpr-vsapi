@@ -134,6 +134,14 @@
 #     expires the node may use the "reauthorize" function to submit updated
 #     credentials for the actor.
 #
+#   * A reauthorize request carries one blob per identity namespace the actor
+#     originally authenticated with (self-signed for 'device', OIDC for 'user'),
+#     and that namespace set must exactly equal the actor's live authorities:
+#     every authority is re-proved, none silently dropped. A set mismatch or a
+#     duplicate namespace is a paramError; credential failures are a generic
+#     authError. On success policy is re-run under the current snapshot and
+#     authExpires is the new minimum across the renewed authorities.
+#
 #
 # Visa Requests:
 #
